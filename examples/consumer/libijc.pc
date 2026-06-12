@@ -1,0 +1,10 @@
+prefix=@prefix@
+libdir=${prefix}/@libdir@
+includedir=${prefix}/@includedir@
+
+Name: @NAME@
+Description: @DESCRIPTION@
+Version: @VERSION@
+Libs: -L${libdir} -lijc
+Libs.private:
+Cflags: -I${includedir}

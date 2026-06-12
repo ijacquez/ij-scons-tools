@@ -1,0 +1,18 @@
+# Install this package into the same Python environment that runs SCons, then:
+#   scons -f examples/consumer/SConstruct
+
+from SCons.Script import Environment, Exit, PyPackageDir, Configure
+import SCons.Node.FS as FS
+
+tool_dir: FS.Dir = PyPackageDir("ij_scons_tools.site_tools")
+if tool_dir is None:
+    Exit("ij-scons-tools is not installed in this Python environment")
+
+env = Environment(tools=["default", "pkg-config"], toolpath=[tool_dir])
+
+conf = Configure(env)
+if not conf.PkgConfigCheck("sdl3"):
+    Exit("example needs sdl3")
+env = conf.Finish()
+
+env.PkgConfigGetLibs("sdl3")

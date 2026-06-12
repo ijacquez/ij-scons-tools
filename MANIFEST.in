@@ -1,0 +1,10 @@
+include LICENSE
+include Makefile
+include README.md
+include pyproject.toml
+include requirements-dev.txt
+recursive-include src *.py *.pyi py.typed
+recursive-include tests *.py
+recursive-include examples *
+global-exclude __pycache__
+global-exclude *.py[cod]
