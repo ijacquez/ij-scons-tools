@@ -9,5 +9,5 @@ __all__ = (
     "__version__",
 )
 
-__version__: Final[str] = "0.2.0"
+__version__: Final[str] = "0.3.0"
 SITE_TOOLS_MODULE: Final[str] = "ij_scons_tools.pkg_config"

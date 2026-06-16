@@ -43,7 +43,6 @@ def InstallVariables(
     destdir: str = "",
 ) -> Any:
     variables = Variables(args=ARGUMENTS)
-
     variables.AddVariables(
         _path_variable(
             "prefix",
@@ -66,14 +65,21 @@ def InstallVariables(
             destdir,
         ),
     )
-
     variables.Update(env)
-
+    env["_INSTALLVARS"] = variables
     return variables
+
+
+def InstallVariablesHelpText(env: Any) -> str:
+    variables = env.get("_INSTALLVARS")
+    if variables is None:
+        variables = InstallVariables(env)
+    return variables.GenerateHelpText(env)
 
 
 def generate(env: Any, **kwargs) -> None:
     env.AddMethod(InstallVariables)
+    env.AddMethod(InstallVariablesHelpText)
 
 
 def exists(env: Any) -> bool:
