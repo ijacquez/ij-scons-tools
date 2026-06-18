@@ -64,7 +64,7 @@ def generate(env: Environment, **kwargs) -> None:
     env.SetDefault(PKG_CONFIG_PC_COMSTR="Building pkg-config $TARGET")
     env.SetDefault(PKG_CONFIG_PC_NAME="Unnamed")
     env.SetDefault(PKG_CONFIG_PC_DESCRIPTION="Description goes here.")
-    env.SetDefault(PKG_CONFIG_PC_VERSION="1.0.0")
+    env.SetDefault(PKG_CONFIG_PC_VERSION="0.1.0")
     env.SetDefault(PKG_CONFIG_PC_PREFIX="usr")
     env.SetDefault(PKG_CONFIG_PC_LIBDIR="lib")
     env.SetDefault(PKG_CONFIG_PC_INCLUDEDIR="include")
