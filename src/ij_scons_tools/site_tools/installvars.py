@@ -22,7 +22,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from SCons.Script import ARGUMENTS, PathVariable, Variables
+from SCons.Script import Environment, PathVariable, Variables
 
 
 def _path_variable(name: str, help_text: str, default: str) -> Any:
@@ -35,14 +35,14 @@ def _path_variable(name: str, help_text: str, default: str) -> Any:
 
 
 def InstallVariables(
-    env: Any,
+    env: Environment,
     *,
     prefix: str = "/usr",
     includedir: str = "${prefix}/include",
     libdir: str = "${prefix}/lib",
     destdir: str = "",
 ) -> Any:
-    variables = Variables(args=ARGUMENTS)
+    variables = Variables()
     variables.AddVariables(
         _path_variable(
             "prefix",
@@ -66,20 +66,11 @@ def InstallVariables(
         ),
     )
     variables.Update(env)
-    env["_INSTALLVARS"] = variables
     return variables
-
-
-def InstallVariablesHelpText(env: Any) -> str:
-    variables = env.get("_INSTALLVARS")
-    if variables is None:
-        variables = InstallVariables(env)
-    return variables.GenerateHelpText(env)
 
 
 def generate(env: Any, **kwargs) -> None:
     env.AddMethod(InstallVariables)
-    env.AddMethod(InstallVariablesHelpText)
 
 
 def exists(env: Any) -> bool:
