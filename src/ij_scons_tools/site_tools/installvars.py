@@ -1,3 +1,7 @@
+"""
+Commonly defined SCons Variables for installation.
+"""
+
 # Copyright (c) 2026 Israel Jacquez
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -34,7 +38,7 @@ def _path_variable(name: str, help_text: str, default: str) -> Any:
     )
 
 
-def InstallVariables(
+def InstallVariables(  # pylint: disable=C0103
     env: Environment,
     *,
     prefix: str = "/usr",
@@ -42,6 +46,20 @@ def InstallVariables(
     libdir: str = "${prefix}/lib",
     destdir: str = "",
 ) -> Any:
+    """
+    Define installation Variables in the context of Environment.
+
+    Args:
+        env (Environment): SCons Environment.
+        prefix (str):      Logical installation prefix (e.g. /usr)
+        includedir (str):  Public header installation directory.
+        libdir (str):      Library installation directory.
+        destdir (str):     Default staged installation tool path.
+
+    Returns:
+        Variables: The added Variables
+    """
+
     variables = Variables()
     variables.AddVariables(
         _path_variable(
@@ -69,9 +87,26 @@ def InstallVariables(
     return variables
 
 
-def generate(env: Any, **kwargs) -> None:
+def generate(env: Any, **kwargs) -> None:  # pylint: disable=W0613
+    """
+    Initialization for Tool "installvars".
+
+    Args:
+        env (Environment): SCons Environment.
+        **kwargs:          Arbitrary keyword arguments.
+    """
     env.AddMethod(InstallVariables)
 
 
-def exists(env: Any) -> bool:
+def exists(env: Any) -> bool:  # pylint: disable=W0613
+    """
+    Determines if Tool "installvars" can be used in this Environment
+    context.
+
+    Args:
+        env (Environment): SCons Environment.
+
+    Returns:
+        bool: Always True.
+    """
     return True
